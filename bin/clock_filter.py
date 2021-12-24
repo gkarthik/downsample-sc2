@@ -91,7 +91,7 @@ plt.close()
 print("Reading and filtering from {} ... ".format(alignment_file))
 filtered_seqs = []
 #filtered_ids = filtered_metadata["gisaid_epi_isl"].tolist()
-filtered_ids = rtt[~rtt["ignore"]]
+filtered_ids = rtt[~rtt["ignore"]]["gisaid_epi_isl"].tolist()
 with gzip.open(alignment_file, "rt") as handle:
     for record in SeqIO.parse(handle, "fasta"):
         if record.id.split("|")[0] in filtered_ids:
