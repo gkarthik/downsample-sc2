@@ -2,11 +2,9 @@ FROM ubuntu:20.04
 MAINTAINER Karthik G <gkarthik@scripps.edu>
 
 
-RUN apt update
-RUN apt install -y wget git parallel python3 python3-pip r-base
-
-RUN DEBIAN_FRONTEND=noninteractive \
-    apt install -y default-jre-headless &&\
+RUN apt update &&\
+    DEBIAN_FRONTEND=noninteractive \
+    apt install -y wget git parallel python3 python3-pip r-base default-jre-headless &&\
     apt clean
 
 RUN pip install --no-input numpy scipy matplotlib pandas biopython baltic tqdm unidecode
