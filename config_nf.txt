@@ -1,0 +1,22 @@
+params {
+    gisaid_metadata = "/wd/data/metadata_2021-12-10_16-25.tsv.gz"
+    lineages_yml = "/wd/data/lineages.yml"
+    out_dir_downsample_metadata_bg = "/wd/results/bg"
+    out_dir_downsample_metadata_sd = "/wd/results/sd"
+    seeds = [112358, 112313, 112321]
+    seq_repo = "/hcov-genomics"
+    regions_mapping = "/wd/data/SanDiegoZIP_region.csv"
+    gisaid_fasta_file = "/wd/data/..."
+    downsampled_fa_bg_out_dir = "/wd/results/bg-fa"
+    tmp_dir = "/wd/results/tmp"
+    gisaid_downsample_threads = 20
+    combined_fasta_dir = "/wd/results/combined-fa"
+    aligned_fasta_dir = "/wd/results/aligned-fa"
+    ref_genome = "/wd/data/NC045512.fasta"
+    masked_fasta_dir = "/wd/results/masked-fa"
+    mask_vcf = "/wd/data/problematic_sites_sarsCov2.vcf"
+    trim_cds_dir = "/wd/results/trimmed-cds-fa"
+    ml_dir = "/wd/results/ml"
+    clock_rate_filter_dir = "/wd/results/clock_rate_filtered"
+    ml_filtered_dir = "/wd/results/ml-filtered"
+}
