@@ -8,8 +8,9 @@ params {
     regions_mapping = "/wd/data/SanDiegoZIP_region.csv"
     gisaid_fasta_file = "/wd/data/2021-12-22_unmasked_singleline.fa.gz"
     downsampled_fa_bg_out_dir = "/wd/results/bg-fa"
+    downsampled_fa_bg_out_dir_tmp = "/wd/results/bg-fa_tmp"
     tmp_dir = "/wd/results/tmp"
-    gisaid_downsample_threads = 20
+    gisaid_downsample_threads = 30
     combined_fasta_dir = "/wd/results/combined-fa"
     aligned_fasta_dir = "/wd/results/aligned-fa"
     ref_genome = "/wd/data/NC045512.fasta"
@@ -19,30 +20,36 @@ params {
     ml_dir = "/wd/results/ml"
     clock_rate_filter_dir = "/wd/results/clock_rate_filtered"
     ml_filtered_dir = "/wd/results/ml-filtered"
+    // After manual check :/
+    manual_exclude_ids = "/wd/results/ml-filtered-exclude-ids"
+    manual_exclude_fasta_dir = "/wd/results/filtered-manual-exclude-algn"
+    ml_manual_exclude = "/wd/results/ml-filtered_exclude"
+    clock_rate_filter_two_dir = "/wd/results/clock_rate_filtered-two"
+    final_ml_dir = "/wd/results/ml-guide-trees/"
 }
 
 // Set as required. Pipeline will not start unless system meets requirements
 
 executor {
 	name = 'local'
-	cpus = 25
+	cpus = 30
 	memory = '100 GB'
 }
 
 process {
     cpus = 1
-    memory = '20 GB'
+    memory = '5 GB'
 
     withLabel: downsample_gisaid { 
-        cpus = 20 
-        memory = '70 GB'
+        cpus = 30
+        memory = '30 GB'
     }
     withLabel: ml { 
         cpus = 6 
-        memory = '25 GB'
+        memory = '10 GB'
     }
     withLabel: algn { 
         cpus = 6
-        memory = '20 GB'
+        memory = '10 GB'
     }
 }
