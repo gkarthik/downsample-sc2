@@ -67,7 +67,7 @@ process generate_guide_tree {
     label 'ml'
     script:
         """
-        iqtree2 -s $filtered_fasta -T 6 -m HKY -czb -fast --prefix ${out_name}_guide_tree.treefile
+        iqtree2 -s $filtered_fasta -T 6 -m HKY -czb -fast --prefix ${out_name}_guide_tree
         collapse_nz.R ${out_name}_guide_tree.treefile ${out_name}_guide_tree_rooted.treefile
         """
     stub:

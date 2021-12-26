@@ -26,6 +26,8 @@ params {
     ml_manual_exclude = "/wd/results/ml-filtered_exclude"
     clock_rate_filter_two_dir = "/wd/results/clock_rate_filtered-two"
     final_ml_dir = "/wd/results/ml-guide-trees/"
+    xml_dir = "/wd/results/xml/"
+    xml_template = "/wd/results/data/SC2_exp_thorney.template"
 }
 
 // Set as required. Pipeline will not start unless system meets requirements
