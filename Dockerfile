@@ -25,6 +25,11 @@ ENV PATH="/nextflow:${PATH}"
 
 RUN Rscript -e 'install.packages("ape", repos="https://cloud.r-project.org")'
 
+RUN wget https://github.com/beast-dev/beast-mcmc/releases/download/v1.10.5pre_thorney_v0.1.1/BEASTGen_v0.3pre_thorney.tgz &&\
+    tar xf BEASTGen_v0.3pre_thorney.tgz
+
+ENV PATH="/BEASTGen_v0.3pre_thorney/bin:${PATH}"
+
 
 # RUN wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh && \
 #     /bin/bash Mambaforge-Linux-x86_64.sh -b &&\
