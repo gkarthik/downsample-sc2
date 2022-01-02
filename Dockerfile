@@ -30,6 +30,11 @@ RUN wget https://github.com/beast-dev/beast-mcmc/releases/download/v1.10.5pre_th
 
 ENV PATH="/BEASTGen_v0.3pre_thorney/bin:${PATH}"
 
+RUN wget https://github.com/beast-dev/beast-mcmc/releases/download/v1.10.5pre1/BEASTv1.10.5pre.tgz && \
+tar xf BEASTv1.10.5pre.tgz && \
+mv BEASTv1.10.5pre/bin/* /usr/local/bin && \
+mv BEASTv1.10.5pre/lib/* /usr/local/lib && \
+rm BEASTv1.10.5pre.tgz
 
 # RUN wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh && \
 #     /bin/bash Mambaforge-Linux-x86_64.sh -b &&\
