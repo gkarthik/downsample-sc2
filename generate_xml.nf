@@ -22,13 +22,14 @@ process generate_xml {
         exclude_selected_seqs.py <(echo "EPI_ISL_402124|2019-12-30|China|Hubei|Wuhan") $algn ${algn}_tmp
         gunzip -c ${algn}_tmp | sed "s/'/_/g" | sed 's/(/_/g' | sed 's/)/_/g' | sed 's/,/_/g' | gzip > ${out_name}_final.fa.gz
         rm ${algn}_tmp
+        gunzip -c ${out_name}_final.fa.gz > ${out_name}_final.fa
 
         drop_root.R $tree ${out_name}_final.treefile
 
         a=\$(get_skygrid_params.py $out_name ${out_name}_final.fa.gz)
         b=(\$(echo \$a | tr ' ' '\n'))
 
-        beastgen -D "name=${out_name},cutOff=\${b[0]},gridPoints=\${b[1]}" -date_order 2 -date_prefix "|" -date_format "yyyy-MM-dd" -tree ${out_name}_final.treefile $xml_template <(gunzip -c ${out_name}_final.fa.gz) ${out_name}.xml
+        beastgen -D "name=${out_name},cutOff=\${b[0]},gridPoints=\${b[1]}" -date_order 2 -date_prefix "|" -date_format "yyyy-MM-dd" -tree ${out_name}_final.treefile $xml_template ${out_name}_final.fa ${out_name}.xml
         """
     stub:
         """
