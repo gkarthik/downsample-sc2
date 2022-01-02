@@ -28,6 +28,13 @@ params {
     final_ml_dir = "/wd/results/ml-guide-trees/"
     xml_dir = "/wd/results/xml/"
     xml_template = "/wd/data/SC2_skygrid_thorney.template"
+    trees_dir="/wd/results/beast-analysis"
+    downsampled_trees="/wd/results/beast-analysis/discrete/downsampled_1000"
+    discrete_xml="/wd/results/beast-analysis/discrete"
+    consensus_trees="/wd/results/beast-analysis/consensus_trees"
+    traits_dir="/wd/results/beast-analysis/traits"
+    burnin=10000000
+    emp_discrete_xml_template="/wd/data/empirical_discrete.template"    
 }
 
 // Set as required. Pipeline will not start unless system meets requirements
