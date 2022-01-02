@@ -19,7 +19,7 @@ process generate_xml {
     publishDir params.xml_dir, mode: 'copy'
     script:
         """
-        exclude_selected_seqs.py <(echo "EPI_ISL_402124|2019-12-30|China|Hubei|Wuhan") $algn ${algn}_tmp
+        exclude_selected_seqs.py <(echo "EPI_ISL_402124") $algn ${algn}_tmp
         gunzip -c ${algn}_tmp | sed "s/'/_/g" | sed 's/(/_/g' | sed 's/)/_/g' | sed 's/,/_/g' | gzip > ${out_name}_final.fa.gz
         rm ${algn}_tmp
         gunzip -c ${out_name}_final.fa.gz > ${out_name}_final.fa
