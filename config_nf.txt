@@ -29,13 +29,13 @@ params {
     xml_dir = "/wd/results/xml/"
     xml_template = "/wd/data/SC2_skygrid_thorney.template"
     trees_dir="/wd/results/beast-analysis"
-    downsampled_trees="/wd/results/beast-analysis/discrete/downsampled_1000"
+    downsampled_trees="/wd/results/beast-analysis/discrete/downsampled_trees"
     discrete_xml="/wd/results/beast-analysis/discrete"
     consensus_trees="/wd/results/beast-analysis/consensus_trees"
     traits_dir="/wd/results/beast-analysis/traits"
     burnin=10000000
     emp_discrete_xml_template="/wd/data/empirical_discrete.template"
-    resample=50000
+    resample=50000    
 }
 
 // Set as required. Pipeline will not start unless system meets requirements
@@ -49,6 +49,11 @@ executor {
 process {
     cpus = 1
     memory = '5 GB'
+
+    withLabel: treeannotator {
+        cpus = 1
+        memory = '10 GB'
+    }
 
     withLabel: downsample_gisaid { 
         cpus = 30

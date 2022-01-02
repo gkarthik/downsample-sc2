@@ -10,6 +10,6 @@ out_file <- args[2]
 
 tree <- read.tree(tree_file)
 
-drop.tip(tree, "EPI_ISL_402124|2019-12-30|China|Hubei|Wuhan")
+tree_dropped_root <- drop.tip(tree, "EPI_ISL_402124|2019-12-30|China|Hubei|Wuhan")
 
-write.tree(tree, out_file)
+write.tree(tree_dropped_root, out_file)
