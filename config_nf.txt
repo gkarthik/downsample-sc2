@@ -35,7 +35,9 @@ params {
     traits_dir="/wd/results/beast-analysis/traits"
     burnin=10000000
     emp_discrete_xml_template="/wd/data/empirical_discrete.template"
-    resample=50000    
+    resample=50000
+    discrete_consensus_trees="/wd/results/beast-analysis/discrete/consensus_trees"
+    persistence="/wd/results/beast-analysis/discrete/persistence_summarizer"
 }
 
 // Set as required. Pipeline will not start unless system meets requirements
