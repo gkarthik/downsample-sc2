@@ -21,7 +21,7 @@ time_interval = [
 def get_iso_week_start(x):
     calendar_date = [int(i) for i in bt.calendarDate(x).split("-")]
     iso_week = datetime.date(*calendar_date).isocalendar()[1]
-    start_date_iso_week = datetime.datetime.fromisocalendar(calendar_date[0], iso_week+1, 1).strftime("%Y-%m-%d")
+    start_date_iso_week = datetime.datetime.fromisocalendar(calendar_date[0], iso_week, 1).strftime("%Y-%m-%d")
     return bt.decimalDate(start_date_iso_week)
 
 iso_weeks = [get_iso_week_start(time_interval[0]), get_iso_week_start(time_interval[1])]
