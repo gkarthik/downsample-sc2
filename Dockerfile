@@ -4,7 +4,7 @@ MAINTAINER Karthik G <gkarthik@scripps.edu>
 
 RUN apt update &&\
     DEBIAN_FRONTEND=noninteractive \
-    apt install -y wget git parallel python3 python3-pip r-base default-jre-headless &&\
+    apt install -y wget git parallel python3 python3-pip r-base default-jre-headless ant git &&\
     apt clean
 
 RUN pip install --no-input numpy scipy matplotlib pandas biopython baltic tqdm unidecode
@@ -35,6 +35,10 @@ tar xf BEASTv1.10.5pre.tgz && \
 mv BEASTv1.10.5pre/bin/* /usr/local/bin && \
 mv BEASTv1.10.5pre/lib/* /usr/local/lib && \
 rm BEASTv1.10.5pre.tgz
+
+RUN git clone https://github.com/beast-dev/beast-mcmc.git &&\
+    cd beast-mcmc &&\
+    ant
 
 # RUN wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh && \
 #     /bin/bash Mambaforge-Linux-x86_64.sh -b &&\
