@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import baltic as bt
 import sys
 import datetime
@@ -7,10 +9,12 @@ tree_path = sys.argv[1]
 tree = bt.loadNexus(tree_path)
 tree.sortBranches()
 
-leaf_node_times = [i.absoluteTime for i in tree.Objects if i.branchType == "leaf"]
+leaf_node_times = [i.absoluteTime for i in tree.Objects if i.branchType == "leaf" and i.traits["location"] != "Outside_San_Diego"]
+
+mrca = tree.commonAncestor([i for i in tree.Objects if i.branchType == "leaf" and i.traits["location"] != "Outside_San_Diego"])
 
 time_interval = [
-    min(leaf_node_times),
+    mrca.absoluteTime,
     max(leaf_node_times)
 ]
 
