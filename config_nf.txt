@@ -38,6 +38,8 @@ params {
     resample=50000
     discrete_consensus_trees="/wd/results/beast-analysis/discrete/consensus_trees"
     persistence="/wd/results/beast-analysis/discrete/persistence_summarizer"
+    glm_xml_template_dir="/wd/data/"
+    glm_xml_dir="/wd/results/beast-analysis/discrete/glm"
 }
 
 // Set as required. Pipeline will not start unless system meets requirements
