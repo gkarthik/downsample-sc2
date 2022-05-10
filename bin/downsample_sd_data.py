@@ -37,7 +37,7 @@ def generate_mapping(id):
     if "SEARCH" in id:
         mapped_id = get_id(id, "SEARCH-[0-9]+")
     elif "CA-SDCPHL" in id:
-        mapped_id = get_id(id, "CA-SDCPHL-[0-9]+")
+        mapped_id = get_id(id, "CA-SDCPHL-[0-9A-za-z]+")
     elif "STM" in id:
         mapped_id = get_id(id, "STM-[\-A-Za-z0-9]+")
     else:
