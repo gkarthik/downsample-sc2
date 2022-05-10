@@ -45,12 +45,15 @@ print("Getting root to tip distance ... ")
 data = []
 for i in tqdm.tqdm(tree.get_terminals()):
     dist = tree.distance(i)
-    date = bt.decimalDate(i.name.split("|")[1])
-    data.append({
-        "name": i.name,
-        "dist": dist,
-        "date": date
-    })
+    try:
+        date = bt.decimalDate(i.name.split("|")[1])
+        data.append({
+            "name": i.name,
+            "dist": dist,
+            "date": date
+        })
+    except:
+        print("Error parsing date: {}. Excluding sequence".format(i.name))
 
 rtt = pd.DataFrame(data)
 rtt["gisaid_epi_isl"] = rtt["name"].apply(lambda x: x.split("|")[0])
