@@ -1,6 +1,7 @@
 params {
     gisaid_metadata = "/wd/data/metadata_2021-12-10_16-25.tsv.gz"
     lineages_yml = "/wd/data/lineages.yml"
+    cases_over_time = "/wd/data/cases/cases_over_time.csv"
     out_dir_downsample_metadata_bg = "/wd/results/bg"
     out_dir_downsample_metadata_sd = "/wd/results/sd"
     seeds = [112358, 112313, 112321]
@@ -40,6 +41,7 @@ params {
     persistence="/wd/results/beast-analysis/discrete/persistence_summarizer"
     glm_xml_template_dir="/wd/data/"
     glm_xml_dir="/wd/results/beast-analysis/discrete/glm"
+    glm_predictors_dir="/wd/data/glm_predictors"
 }
 
 // Set as required. Pipeline will not start unless system meets requirements

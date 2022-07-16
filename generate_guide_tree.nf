@@ -23,13 +23,14 @@ process downsample_sd {
         path lineages_yml from params.lineages_yml
         path out_dir from params.out_dir_downsample_metadata_sd
         path regions_mapping from params.regions_mapping
+        path cases_over_time from params.cases_over_time
         val seed from params.seeds
     publishDir params.out_dir_downsample_metadata_sd, mode: 'copy'
     output:
         file "*.fa.gz" into downsampled_sd_ch
     script:
         """
-        downsample_sd_data.py $seq_repo $lineages_yml . $regions_mapping $seed
+        downsample_sd_data.py $seq_repo $lineages_yml . $regions_mapping $cases_over_time $seed
         """
     stub:
         """
