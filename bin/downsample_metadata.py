@@ -24,12 +24,12 @@ if __name__ == "__main__":
     # lineages_yml_file = "../data/lineages.yml"
 
     lineages = [
-        [["B.1.2", False]],              # name, recursive
-        [["B.1.617.2", True]],
-        [["B.1.1.7", True]],
+        # [["B.1.2", False]],              # name, recursive
+        # [["B.1.617.2", True]],
+        # [["B.1.1.7", True]],
         # [["P.1", True]],
-        [["B.1.427", True], ["B.1.429", True]],
-        [["B.1", False]],
+        # [["B.1.427", True], ["B.1.429", True]],
+        # [["B.1", False]],
         [["BA.1", False]]
     ]
 
