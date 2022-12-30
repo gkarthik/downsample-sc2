@@ -51,6 +51,9 @@ if __name__ == "__main__":
             flines.append(lin[0])
             if lin[1]:          # If resursive
                 flines.extend(lin_info["children"])
+	    if lin[0] == "BA.2": # Exclude BA.2.12.1
+                ba_2_12_1 = next(i for i in lineages_list if i["name"] == "BA.2.12.1")
+                flines = [i for i in flines if i not in ba_2_12_1["children"]]
         lineage_queries.append(flines)
 
     # Read in metadata
