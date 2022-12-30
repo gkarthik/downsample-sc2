@@ -24,15 +24,18 @@ if __name__ == "__main__":
     # lineages_yml_file = "../data/lineages.yml"
 
     lineages = [
-        # [["B.1.2", False]],              # name, recursive
-        # [["B.1.617.2", True]],
-        # [["B.1.1.7", True]],
+        [["B.1.2", False]],              # name, recursive
+        [["B.1.617.2", True]],
+        [["B.1.1.7", True]],
         # [["P.1", True]],
-        # [["B.1.427", True], ["B.1.429", True]],
-        # [["B.1", False]],
-        [["BA.1", False]]
+        [["B.1.427", True], ["B.1.429", True]],
+        [["B.1", False]],
+        [["BA.1", True]],
+        [["BA.2", True]],
+        [["BA.2.12.1", True]],
+        [["BA.4", True]],
+        [["BA.5", True]]
     ]
-
     # lineages = [
     #     # [["B.1.427", True], ["B.1.429", True]] # 2021-11-02
     # ]
@@ -51,7 +54,7 @@ if __name__ == "__main__":
             flines.append(lin[0])
             if lin[1]:          # If resursive
                 flines.extend(lin_info["children"])
-	    if lin[0] == "BA.2": # Exclude BA.2.12.1
+            if lin[0] == "BA.2": # Exclude BA.2.12.1
                 ba_2_12_1 = next(i for i in lineages_list if i["name"] == "BA.2.12.1")
                 flines = [i for i in flines if i not in ba_2_12_1["children"]]
         lineage_queries.append(flines)
