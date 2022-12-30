@@ -1,9 +1,10 @@
 ## Nextflow pipeline to downsample sequences from GISAID
 
-* `./start_docker.sh` -> Mount docker container and associated volumes. See script for more details
-* `chmod +x /code/bin/*` -> Make all external scripts executable
+* Download unmasked alignment and genomic epidemiology metadata from GISAID
 * Edit `bin/downsample_metadata.py` and `bin/downsample_sd_data.py` as per requirements
 * Edit config_nf.txt as per requirements
+* `./start_docker.sh` -> Mount docker container and associated volumes. See script for more details
+* `chmod +x /code/bin/*` -> Make all external scripts executable
 * `nextflow -C config_nf.txt run generate_guide_tree.nf` to generate guide trees
 * Nextflow workflows,
   * `generate_guide_tree.nf` to generate initial guide trees

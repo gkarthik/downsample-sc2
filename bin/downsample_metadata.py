@@ -27,9 +27,10 @@ if __name__ == "__main__":
         [["B.1.2", False]],              # name, recursive
         [["B.1.617.2", True]],
         [["B.1.1.7", True]],
-        [["P.1", True]],
+        # [["P.1", True]],
         [["B.1.427", True], ["B.1.429", True]],
-        [["B.1", False]]
+        [["B.1", False]],
+        [["BA.1", False]]
     ]
 
     # lineages = [
@@ -84,7 +85,7 @@ if __name__ == "__main__":
         n_bg = 2500
         background_lineage_metadata = background_metadata[background_metadata["pango_lineage"].str.upper().isin(lineage_query)]
         n_bg = n_bg if n_bg <= background_lineage_metadata.shape[0] else background_lineage_metadata.shape[0] # Check if n_bg > number of available sequences
-        background_lineage_metadata = background_lineage_metadata.sample(n = n_bg, random_state = seed)
+        background_lineage_metadata = background_lineage_metadata.sample(n = n_bg, random_state = 112313) # Fix seed
         print("Selected {} sequences from background".format(n_bg))
 
         # Final sequence dataset

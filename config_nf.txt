@@ -1,12 +1,14 @@
 params {
-    gisaid_metadata = "/wd/data/metadata_2021-12-10_16-25.tsv.gz"
+    gisaid_metadata = "/wd/data/metadata_2022-05-05_23-38.tsv.gz"
     lineages_yml = "/wd/data/lineages.yml"
+    cases_over_time = "/wd/data/cases/cases_over_time.csv"
+    first_last_dates = "/wd/data/cases/first_last_dates.csv"
     out_dir_downsample_metadata_bg = "/wd/results/bg"
     out_dir_downsample_metadata_sd = "/wd/results/sd"
     seeds = [112358, 112313, 112321]
     seq_repo = "/hcov-genomics"
     regions_mapping = "/wd/data/SanDiegoZIP_region.csv"
-    gisaid_fasta_file = "/wd/data/2021-12-22_unmasked_singleline.fa.gz"
+    gisaid_fasta_file = "/wd/data/2022-05-08_unmasked_singleline.fa.gz"
     downsampled_fa_bg_out_dir = "/wd/results/bg-fa"
     downsampled_fa_bg_out_dir_tmp = "/wd/results/bg-fa_tmp"
     tmp_dir = "/wd/results/tmp"
@@ -33,13 +35,14 @@ params {
     discrete_xml="/wd/results/beast-analysis/discrete"
     consensus_trees="/wd/results/beast-analysis/consensus_trees"
     traits_dir="/wd/results/beast-analysis/traits"
-    burnin=10000000
+    burnin=20000000
     emp_discrete_xml_template="/wd/data/empirical_discrete.template"
     resample=50000
     discrete_consensus_trees="/wd/results/beast-analysis/discrete/consensus_trees"
     persistence="/wd/results/beast-analysis/discrete/persistence_summarizer"
     glm_xml_template_dir="/wd/data/"
     glm_xml_dir="/wd/results/beast-analysis/discrete/glm"
+    glm_predictors_dir="/wd/data/glm_predictors"
 }
 
 // Set as required. Pipeline will not start unless system meets requirements
