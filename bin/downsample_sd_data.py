@@ -30,7 +30,7 @@ lineages_yml_file = sys.argv[2]
 out_dir = sys.argv[3]
 regions_mapping = sys.argv[4]
 cases_path = sys.argv[5]
-first_last_dates_path = sys.argv[6]
+first_last_dates_path = sys.argv[6] # Remember to change B.1.427/429 to B1.427_B.1.429
 seed = int(sys.argv[7]) if len(sys.argv) > 6 else 112358
 
 # repo_path = "../../../HCoV-19-Genomics/"
