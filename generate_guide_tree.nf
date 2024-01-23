@@ -3,13 +3,15 @@ process downsample_metadata {
         path gisaid_metadata from params.gisaid_metadata
         path lineages_yml from params.lineages_yml
         path out_dir from params.out_dir_downsample_metadata_bg
+	    path emergence_dates from params.emergence_dates
         val seed from params.seeds
     publishDir params.out_dir_downsample_metadata_bg, mode: 'copy'
+    scratch params.scratch_dir
     output:
         file "*.tsv.gz" into downsampled_metadata_ch
     script:
         """
-        downsample_metadata.py $gisaid_metadata $lineages_yml . $seed
+        downsample_metadata.py $gisaid_metadata $lineages_yml . $emergence_dates $seed
         """
     stub:
         """
@@ -27,6 +29,7 @@ process downsample_sd {
 	path first_last_dates from params.first_last_dates
         val seed from params.seeds
     publishDir params.out_dir_downsample_metadata_sd, mode: 'copy'
+    scratch params.scratch_dir
     output:
         file "*.fa.gz" into downsampled_sd_ch
     script:
@@ -45,6 +48,7 @@ process downsample_gisaid_fasta {
         path gisaid_fasta from params.gisaid_fasta_file
         val threads from params.gisaid_downsample_threads
     publishDir params.downsampled_fa_bg_out_dir_tmp, mode: 'copy'
+    scratch params.scratch_dir
     output:
         file "*.fa.gz" into downsample_gisaid_fasta_ch
     label 'downsample_gisaid'
@@ -80,6 +84,7 @@ process downsample_gisaid_fasta_combine {
     output:
         file "${out_name}-combined.fa.gz" into downsample_gisaid_fasta_combine_ch
     publishDir params.downsampled_fa_bg_out_dir, mode: 'copy'
+    scratch params.scratch_dir
     script:
         """
         cat ${downsampled_fa_chunks} > ${out_name}-combined.fa.gz
@@ -116,6 +121,7 @@ process combine_fasta {
     output:
         tuple val(out_name), file("${out_name}.fa") into combined_fa_ch
     publishDir params.combined_fasta_dir, mode: 'copy'
+    scratch params.scratch_dir
     script:
         """
         cat $bg $sd > ${out_name}.fa.gz
@@ -134,6 +140,7 @@ process align_seqs {
     output:
         tuple out_name, file("${out_name}_aligned.fa") into aligned_fa_ch
     publishDir params.aligned_fasta_dir, mode: 'copy'
+    scratch params.scratch_dir
     label 'algn'
     script:
         """
@@ -152,6 +159,7 @@ process mask_seqs {
     output:
         tuple out_name, file("${out_name}_aligned_masked.fa") into masked_fa_ch
     publishDir params.masked_fasta_dir, mode: 'copy'
+    scratch params.scratch_dir
     script:
         """
         mask_seqs.py $aligned_fasta ${out_name}_aligned_masked.fa $mask_vcf
@@ -168,6 +176,7 @@ process trim_cds_seqs {
     output:
         tuple out_name, file("${out_name}_aligned_masked_cds.fa.gz") into trim_cds_seqs_ch
     publishDir params.trim_cds_dir, mode: 'copy'
+    scratch params.scratch_dir
     script:
         """
         trim_cds.py $masked_fasta ${out_name}_aligned_masked_cds.fa.tmp
@@ -186,6 +195,7 @@ process generate_ml_tree {
     output:
         tuple out_name, file(cds_fa), file("${out_name}_ml.treefile") into ml_tree_ch
     publishDir params.ml_dir, mode: 'copy'
+    scratch params.scratch_dir
     label 'ml'
     script:
         """
@@ -203,6 +213,7 @@ process clock_rate_filter {
     output:
         tuple out_name, file("${out_name}_aligned_masked_cds_filtered.fa.gz"), file("${out_name}_rtt.png") into clock_rate_filter_ch
     publishDir params.clock_rate_filter_dir, mode: 'copy'
+    scratch params.scratch_dir
     script:
         """
         clock_filter.py $ml_tree $cds_fa ${out_name}_aligned_masked_cds_filtered.fa.gz ${out_name}_rtt.png 
@@ -219,6 +230,7 @@ process regenerate_ml_tree {
     output:
         tuple out_name, file("${out_name}_ml_filtered.treefile"), file("${out_name}_ml_filtered_rooted.treefile") into ml_filtered_tree_ch
     publishDir params.ml_filtered_dir, mode: 'copy'
+    scratch params.scratch_dir
     label 'ml'
     script:
         """

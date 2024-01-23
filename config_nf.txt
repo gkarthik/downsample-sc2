@@ -1,14 +1,16 @@
 params {
-    gisaid_metadata = "/wd/data/metadata_2022-05-05_23-38.tsv.gz"
+    scratch_dir = "/wd/scratch"
+    gisaid_metadata = "/wd/data/metadata_2022-12-25_23-58.tsv.gz"
     lineages_yml = "/wd/data/lineages.yml"
     cases_over_time = "/wd/data/cases/cases_over_time.csv"
     first_last_dates = "/wd/data/cases/first_last_dates.csv"
+    emergence_dates = "/wd/data/cases/emergence_manually_curated.csv"
     out_dir_downsample_metadata_bg = "/wd/results/bg"
     out_dir_downsample_metadata_sd = "/wd/results/sd"
     seeds = [112358, 112313, 112321]
     seq_repo = "/hcov-genomics"
     regions_mapping = "/wd/data/SanDiegoZIP_region.csv"
-    gisaid_fasta_file = "/wd/data/2022-05-08_unmasked_singleline.fa.gz"
+    gisaid_fasta_file = "/wd/data/2022-12-29_unmasked_singleline.fa.gz"
     downsampled_fa_bg_out_dir = "/wd/results/bg-fa"
     downsampled_fa_bg_out_dir_tmp = "/wd/results/bg-fa_tmp"
     tmp_dir = "/wd/results/tmp"

@@ -7,7 +7,7 @@ RUN apt update &&\
     apt install -y wget git parallel python3 python3-pip r-base default-jre-headless default-jdk ant git locales &&\
     apt clean
 
-RUN pip install --no-input numpy scipy matplotlib pandas biopython baltic tqdm unidecode pyyaml
+RUN pip install --no-input numpy scipy matplotlib pandas biopython baltic tqdm unidecode pyyaml tol_colors
 
 RUN wget https://mafft.cbrc.jp/alignment/software/mafft_7.490-1_amd64.deb && dpkg -i mafft_7.490-1_amd64.deb
 

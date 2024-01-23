@@ -86,17 +86,17 @@ cases = cases.groupby(["region", "updatedate"]).sum().reset_index()
 
 # Read in lineages
 lineages = [
-    [["B.1.2", False]],              # name, recursive
+#    [["B.1.2", False]],              # name, recursive
     [["B.1.617.2", True]],
-    [["B.1.1.7", True]],
+#    [["B.1.1.7", True]],
     # [["P.1", True]],
-    [["B.1.427", True], ["B.1.429", True]],
-    [["B.1", False]],
+#    [["B.1.427", True], ["B.1.429", True]],
+#    [["B.1", False]],
     [["BA.1", True]],
-    [["BA.2", True]],
-    [["BA.2.12.1", True]],
-    [["BA.4", True]],
-    [["BA.5", True]]
+#    [["BA.2", True]],
+#    [["BA.2.12.1", True]],
+#    [["BA.4", True]],
+#    [["BA.5", True]]
 ]
 
 # Read in lineage

@@ -26,17 +26,17 @@ if __name__ == "__main__":
     # lineages_yml_file = "../data/lineages.yml"
 
     lineages = [
-        [["B.1.2", False]],              # name, recursive
+#        [["B.1.2", False]],              # name, recursive
         [["B.1.617.2", True]],
-        [["B.1.1.7", True]],
+#        [["B.1.1.7", True]],
         # [["P.1", True]],
-        [["B.1.427", True], ["B.1.429", True]],
-        [["B.1", False]],
+#        [["B.1.427", True], ["B.1.429", True]],
+#        [["B.1", False]],
         [["BA.1", True]],
-        [["BA.2", True]],
-        [["BA.2.12.1", True]],
-        [["BA.4", True]],
-        [["BA.5", True]]
+#        [["BA.2", True]],
+#        [["BA.2.12.1", True]],
+#        [["BA.4", True]],
+#        [["BA.5", True]]
     ]
     # lineages = [
     #     # [["B.1.427", True], ["B.1.429", True]] # 2021-11-02
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     print("Reading metadata from {} ... ".format(metadata_file))
     metadata = pd.read_csv(metadata_file, sep="\t", low_memory = False, compression="gzip")
     print("Filtering out incomplete dates ... ")
-    metadata = metadata[metadata["date"].apply(lambda x: len(x.split("-")) == 3)].assign(date = lambda x: pd.to_datetime(x["date"], format="%Y-%m-%d"))
+    metadata = metadata[metadata["date"].apply(lambda x: len(x.split("-")) == 3 and "x" not in x.lower())].assign(date = lambda x: pd.to_datetime(x["date"], format="%Y-%m-%d"))
 
     # Get reference sequence metadata
     ref_metadata = metadata[metadata["gisaid_epi_isl"] == "EPI_ISL_402124"]
@@ -101,16 +101,24 @@ if __name__ == "__main__":
         
         # n_bg = total_seqs - loc_lineage_metadata.shape[0] # Max sequences set to 40000 by default
         n_bg = 2500
-        background_lineage_metadata = background_metadata[background_metadata["pango_lineage"].str.upper().isin(lineage_query) & background_metadata["date"] >= emergence_date["min_date"].iloc[0]]
+        background_lineage_metadata = background_metadata[(background_metadata["pango_lineage"].str.upper().isin(lineage_query)) & (background_metadata["date"] >= emergence_date["min_date"].iloc[0])]
         n_bg = n_bg if n_bg <= background_lineage_metadata.shape[0] else background_lineage_metadata.shape[0] # Check if n_bg > number of available sequences
         background_lineage_metadata_sampled = background_lineage_metadata.sample(n = n_bg, random_state = 112313) # Fix seed
         print("Selected {} sequences from background".format(n_bg))
 
-        # Add 500 of the earliest sequences
-        first_month_bg_metadata = background_lineage_metadata[~background_lineage_metadata["gisaid_epi_isl"].isin(background_lineage_metadata_sampled["gisaid_epi_isl"].tolist())]
-        first_month_bg_metadata = first_month_bg_metadata[first_month_bg_metadata["date"] <= (emergence_date["min_date"].iloc[0] + timedelta(days = 30))]
-        if first_month_bg_metadata.shape[0] > 500:
-            first_month_bg_metadata = first_month_bg_metadata.sample(n = 500, random_state = 112313)
+        # Add 1000 sequences from emergence to first date with consistent sampling from random sample
+        random_sampling_df = background_lineage_metadata_sampled.groupby("date").size().sort_index()
+        upsampled_df = random_sampling_df.asfreq('D', fill_value=0).sort_index() # This sort_index() probably not needed
+        upsampled_df_rolling_mean = upsampled_df.rolling(window = 7,center = True).mean()
+        randomly_sampled_min_date = upsampled_df_rolling_mean[upsampled_df_rolling_mean >= 1].sort_index().index[0]
+
+        first_month_bg_metadata = background_lineage_metadata[
+            (~background_lineage_metadata["gisaid_epi_isl"].isin(background_lineage_metadata_sampled["gisaid_epi_isl"].tolist())) &
+            (background_lineage_metadata["date"] < randomly_sampled_min_date)
+            ]
+
+        if first_month_bg_metadata.shape[0] > 1000:
+            first_month_bg_metadata = first_month_bg_metadata.sample(n = 1000, random_state = 112313)
         
         # Final sequence dataset
         # loc_lineage_metadata = pd.concat([loc_lineage_metadata, background_lineage_metadata, ref_metadata])
@@ -119,7 +127,7 @@ if __name__ == "__main__":
 
         # Create new names
         print("Creating new names ... ")
-        loc_lineage_metadata["new_name"] = loc_lineage_metadata[["gisaid_epi_isl", "date", "country", "division", "location"]].fillna("None").apply(rename_sequence, axis = 1)
+        loc_lineage_metadata["new_name"] = loc_lineage_metadata[["gisaid_epi_isl", "date", "country", "division", "location"]].fillna("None").astype(str).apply(rename_sequence, axis = 1)
         loc_lineage_metadata = loc_lineage_metadata.set_index("gisaid_epi_isl")
         loc_lineage_metadata.to_csv("{}/{}-{}-{}-downsampled_metadata.tsv.gz".format(out_dir, lineage_name, seed, total_seqs), sep="\t", compression="gzip")
 
